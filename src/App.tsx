@@ -5,54 +5,42 @@ import AdminLayout from "./layout/AdminLayout"
 import Dashboard from "./pages/admin/Dashboard"
 import Users from "./pages/admin/Users"
 import Reports from "./pages/admin/Reports"
+import AllCustomers from "./pages/dashboard/AllCustomers"
+import UnpaidCustomers from "./pages/dashboard/UnpaidCustomers"
 import { getToken } from "./services/auth"
 
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+/* ====================
+   PROTECTED ROUTE
+==================== */
+const ProtectedRoute = () => {
   const token = getToken()
   if (!token) return <Navigate to="/" replace />
-  return children
+  return <AdminLayout />
 }
 
+/* ====================
+   APP ROUTER
+==================== */
 function App() {
   return (
     <Router>
       <Routes>
+
         {/* LOGIN */}
         <Route path="/" element={<Login />} />
 
-        {/* ADMIN */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <AdminLayout>
-                <Dashboard />
-              </AdminLayout>
-            </ProtectedRoute>
-          }
-        />
+        {/* RUTAS ADMIN PROTEGIDAS */}
+        <Route element={<ProtectedRoute />}>
 
-        <Route
-          path="/users"
-          element={
-            <ProtectedRoute>
-              <AdminLayout>
-                <Users />
-              </AdminLayout>
-            </ProtectedRoute>
-          }
-        />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/all" element={<AllCustomers />} />
+          <Route path="/dashboard/unpaid" element={<UnpaidCustomers />} />
 
-        <Route
-          path="/reports"
-          element={
-            <ProtectedRoute>
-              <AdminLayout>
-                <Reports />
-              </AdminLayout>
-            </ProtectedRoute>
-          }
-        />
+          <Route path="/users" element={<Users />} />
+          <Route path="/reports" element={<Reports />} />
+
+        </Route>
+
       </Routes>
     </Router>
   )
