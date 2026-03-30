@@ -43,12 +43,20 @@ export default function Sidebar() {
         >
           Reportes
         </button>
+
+        {/* NUEVO TAB */}
+        <button
+          onClick={() => navigate("/dashboard/messages")}
+          className={`w-full text-left px-4 py-3 rounded transition ${isActive("/dashboard/messages")}`}
+        >
+          Historial de Mensajes
+        </button>
       </nav>
 
       {/* FOOTER */}
       <div className="p-4 border-t border-zinc-800 text-gray-500 text-xs text-center space-y-1">
         <div>Licensed to QJ Fitness</div>
-		<div>Powered by eMBOX – Developed by Erwin Muñoz </div>
+        <div>Powered by eMBOX – Developed by Erwin Muñoz </div>
         <div>© {new Date().getFullYear()} QJ Fitness</div>
       </div>
 

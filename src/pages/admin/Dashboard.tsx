@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { fetchCustomers } from "../../api/customers"
+import MessageHistory from "../../components/MessageHistory"
 
 export default function Dashboard() {
 
@@ -33,9 +34,7 @@ export default function Dashboard() {
      PENDIENTES DE PAGO
   ===================== */
   const unpaid = customers.filter(
-    (c) =>
-      c.status !== "inactive" &&
-      new Date(c.due_date) < today
+    (c) => c.status === "pending_payment"
   ).length
 
   /* =====================
@@ -117,6 +116,9 @@ export default function Dashboard() {
         </div>
 
       </div>
+
+      {/* HISTORIAL DE MENSAJES */}
+      
     </div>
   )
 }

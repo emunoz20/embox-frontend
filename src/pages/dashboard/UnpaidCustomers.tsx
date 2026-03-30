@@ -27,12 +27,10 @@ export default function UnpaidCustomers() {
   const loadCustomers = async () => {
 
     const data = await fetchCustomers()
-    const today = new Date()
 
+    // 🔥 NUEVA LÓGICA: el backend ya define quién está pendiente
     const unpaid = data.filter(
-      (c) =>
-        (c.status || "active") === "active" &&
-        new Date(c.due_date) < today
+      (c) => c.status === "pending_payment"
     )
 
     setCustomers(unpaid)
